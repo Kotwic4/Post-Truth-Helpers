@@ -20,4 +20,4 @@ Dodatkowo trzeba wykonać trzy recenzje rozwiązań zadania nr 2 i umieścić w 
 
 Treść zadania w Google Drive: https://goo.gl/nYD1E3
 
-Termin oddania zadania: 29 maja 2017, 20:00
+Termin oddania zadania: 5 czerwca 2017, 20:00
