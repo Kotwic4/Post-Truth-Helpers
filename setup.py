@@ -3,11 +3,6 @@
 
 from setuptools import setup
 
-with open('README.rst') as readme_file:
-    readme = readme_file.read()
-
-with open('HISTORY.rst') as history_file:
-    history = history_file.read()
 
 requirements = [
     # TODO: put package requirements here
@@ -21,7 +16,7 @@ setup(
     name='post_truth_helpers',
     version='0.1.0',
     description="Set of tools to help user find if information is true or not.",
-    long_description=readme + '\n\n' + history,
+    long_description=open('README.md').read(),
     author="Radomir Krawczykiewicz",
     author_email='kotwic4@gmail.com',
     url='https://github.com/Kotwic4/post_truth_helpers',
