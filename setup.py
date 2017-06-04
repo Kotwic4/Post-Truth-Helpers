@@ -13,7 +13,7 @@ test_requirements = [
 ]
 
 setup(
-    name='post_truth_helpers',
+    name='pt_helpers',
     version='0.1.0',
     description="Set of tools to help user find if information is true.",
     long_description=open('README.md').read(),
@@ -21,15 +21,15 @@ setup(
     author_email='kotwic4@gmail.com',
     url='https://github.com/AGHPythonCourse2017/zad3-Kotwic4',
     packages=[
-        'post_truth_helpers',
+        'pt_helpers',
     ],
-    package_dir={'post_truth_helpers':
-                 'post_truth_helpers'},
+    package_dir={'pt_helpers':
+                 'pt_helpers'},
     include_package_data=True,
     install_requires=requirements,
     license="MIT license",
     zip_safe=False,
-    keywords='post_truth_helpers',
+    keywords='pt_helpers',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
