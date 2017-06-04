@@ -9,7 +9,7 @@ requirements = [
 ]
 
 test_requirements = [
-    # TODO: put package test requirements here
+    'pytest'
 ]
 
 setup(
@@ -19,7 +19,7 @@ setup(
     long_description=open('README.md').read(),
     author="Radomir Krawczykiewicz",
     author_email='kotwic4@gmail.com',
-    url='https://github.com/Kotwic4/post_truth_helpers',
+    url='https://github.com/AGHPythonCourse2017/zad3-Kotwic4',
     packages=[
         'post_truth_helpers',
     ],
@@ -35,9 +35,6 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
-        "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
