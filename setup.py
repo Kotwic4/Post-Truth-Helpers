@@ -15,7 +15,7 @@ test_requirements = [
 setup(
     name='post_truth_helpers',
     version='0.1.0',
-    description="Set of tools to help user find if information is true or not.",
+    description="Set of tools to help user find if information is true.",
     long_description=open('README.md').read(),
     author="Radomir Krawczykiewicz",
     author_email='kotwic4@gmail.com',
