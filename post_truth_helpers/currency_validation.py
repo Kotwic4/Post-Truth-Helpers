@@ -1,50 +1,83 @@
 import urllib.request
 import json
 
+DEFAULT_BASE = "USD"
+DEFAULT_DATE = "latest"
+API_URL_FORMAT = "http://api.fixer.io/{}?base={}&symbols={}"
+API_URL_FORMAT_ALL = "http://api.fixer.io/{}?base={}"
+VALUE_PRECISION = 10**5
 
-class CurrencyValidation:
-    def generate_url(self, rate, base="USD", date="latest"):
-        return "http://api.fixer.io/{}?base={}&symbols={}".format(date, base, rate)
 
-    def download_rate(self, rate, base="USD", date="latest"):
-        url = self.generate_url(rate, base, date)
-        body = ""
-        try:
-            body = urllib.request.urlopen(url).read()
-        except urllib.error.URLError as e:
-            body = e.read()
-            l = json.loads(body)
-            raise self.MyError(l['error'])
-        return body
+class InvalidBaseException(Exception):
+    pass
 
-    def test(self, rate, base="USD", date="latest"):
-        try:
-            print(self.download_rate('EURO', 'PLN', '2016-13-11'))
-        except self.MyError as e:
-            print(e)
 
-    class MyError(Exception):
-        pass
+class InvalidDateException(Exception):
+    pass
 
-validator = CurrencyValidation()
-validator.test('EURO','PLN','2016-13-11')
-generate_url('EURO','PLN','2017-06')
-download_rate('EURO','PLN','2016-13-11')
-from os import environ
-environ["TEST"] = "1"
-environ["TEST"]
 
-import urllib.request
-s = urllib.request.urlopen("http://api.fixer.io/latest?symbols=bla&base=USD").read()
-l = json.loads(s)
-l['rates']
+class CurrencyNotFoundException(Exception):
+    pass
 
-l = json.loads('{"base":"USD","date":"2017-06-01","rates":{"AUD":1.3532,"BGN":1.7433,"BRL":3.2209,"CAD":1.3508,"CHF":0.97005,"CNY":6.8089,"CZK":23.529,"DKK":6.6311,"GBP":0.77752,"HKD":7.792,"HRK":6.6075,"HUF":274.13,"IDR":13310.0,"ILS":3.5511,"INR":64.466,"JPY":111.0,"KRW":1121.7,"MXN":18.647,"MYR":4.288,"NOK":8.4584,"NZD":1.4146,"PHP":49.716,"PLN":3.7285,"RON":4.0721,"RUB":56.63,"SEK":8.7138,"SGD":1.3838,"THB":34.15,"TRY":3.54,"ZAR":13.05,"EUR":0.89135}}')
-l['base']
 
-import json
-def as_complex(dct):
-    print(dct['base'])
-    return dct
+class CurrencyRate:
+    def __init__(self, currency, base, date, rate):
+        self.currency = currency
+        self.base = base
+        self.date = date
+        self.rate = rate
 
-json.loads('{"base":"USD","date":"2017-06-01","rates":{"bla":"bla"}}')
+    def __str__(self):
+        return json.dumps(self.__dict__)
+
+
+def generate_url(currency, base=DEFAULT_BASE, date=DEFAULT_DATE):
+    return API_URL_FORMAT.format(date, base, currency)
+
+
+def get_currency_rate(currency, base=DEFAULT_BASE, date=DEFAULT_DATE):
+    url = generate_url(currency, base, date)
+    try:
+        body = urllib.request.urlopen(url).read()
+        json_body = json.loads(body)
+        if not json_body['rates']:
+            raise CurrencyNotFoundException
+        rate = list(json_body['rates'].items())[0]
+        currency_rate = CurrencyRate(rate[0],
+                                     json_body['base'],
+                                     json_body['date'],
+                                     rate[1])
+        return currency_rate
+    except urllib.error.URLError as e:
+        body = e.read()
+        json_body = json.loads(body)
+        error_msg = json_body['error']
+        if error_msg == 'Invalid base':
+            raise InvalidBaseException
+        else:
+            raise InvalidDateException
+
+
+def calculate_currency_exchange(currency,
+                                amount,
+                                base=DEFAULT_BASE,
+                                date=DEFAULT_DATE):
+    if isinstance(currency, str):
+        currency_rate = get_currency_rate(currency, base, date)
+        a = int(currency_rate.rate * VALUE_PRECISION)
+        b = int(amount * VALUE_PRECISION)
+        return ((a * b)//VALUE_PRECISION)/VALUE_PRECISION
+    else:
+        for x in currency:
+            amount = calculate_currency_exchange(x, amount, base, date)
+            base = x
+        return amount
+
+
+def get_currency_list():
+    url = API_URL_FORMAT_ALL.format(DEFAULT_DATE, DEFAULT_BASE)
+    body = urllib.request.urlopen(url).read()
+    json_body = json.loads(body)
+    l = list(json_body['rates'].keys())
+    l.append(DEFAULT_BASE)
+    return l
