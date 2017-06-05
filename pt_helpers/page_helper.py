@@ -134,7 +134,7 @@ def wot_info(page_url):
     normal_rep = PageReputation.from_json(json_body.get('0'))
     kid_rep = PageReputation.from_json(json_body.get('4'))
     categories = []
-    if isinstance(json_body.get('categories'),dict):
+    if isinstance(json_body.get('categories'), dict):
         for x in json_body['categories'].items():
             categories.append(Category(x[0], x[1]))
     return PageInfo(page_url, normal_rep, kid_rep, categories)
