@@ -1,4 +1,9 @@
-Zadanie 03
+Post Truth Helpers
+==========
+
+Przykłady użycia w Example.ipynb
+
+Tresc zadania
 ==========
 
 Słowem roku 2016 w Oxford Dictionaries zostało wyrażenie post-truth (pl. “post-prawda”): https://en.oxforddictionaries.com/word-of-the-year/word-of-the-year-2016
