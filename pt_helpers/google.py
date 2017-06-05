@@ -1,7 +1,7 @@
 import webbrowser
 
 GOOGLE_URL = "https://www.google.{}/#safe={}&q={}"
-LMGTFY_URL = "http://lmgtfy.com/?q={}"
+DUMMIES_URL = "http://lmgtfy.com/?q={}"
 
 
 def search(query, tld='com', safe='off'):
@@ -9,6 +9,6 @@ def search(query, tld='com', safe='off'):
     webbrowser.open(url)
 
 
-def lmgtfy(query):
-    url = LMGTFY_URL.format(query)
+def dummies_search(query):
+    url = DUMMIES_URL.format(query)
     webbrowser.open(url)
