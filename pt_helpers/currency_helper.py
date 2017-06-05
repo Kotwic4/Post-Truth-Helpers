@@ -29,7 +29,7 @@ class CurrencyRate:
         self.rate = rate
 
     def __str__(self):
-        return json.dumps(self.__dict__)
+        return str(self.__dict__)
 
 
 def get_rate(currency, base=DEFAULT_BASE, date=DEFAULT_DATE):

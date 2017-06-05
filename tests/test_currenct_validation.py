@@ -1,5 +1,5 @@
 import pytest
-import pt_helpers.currency as currency
+import pt_helpers.currency_helper as currency
 
 
 def test_get_currency_rate():
