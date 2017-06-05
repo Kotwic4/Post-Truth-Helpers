@@ -5,11 +5,11 @@ from setuptools import setup
 
 
 requirements = [
-    # TODO: put package requirements here
+
 ]
 
 test_requirements = [
-    'pytest'
+    'pytest',
 ]
 
 setup(

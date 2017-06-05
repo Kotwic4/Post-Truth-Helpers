@@ -1,5 +1,8 @@
-import pt_helpers.currency as currency_validation
+# import pt_helpers.currency as currency
+# import pt_helpers.page as page
 
 __all__ = [
-    'currency.py'
+    'currency',
+    'page',
+    'google',
 ]
