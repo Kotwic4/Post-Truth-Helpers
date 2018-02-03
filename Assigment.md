@@ -1,8 +1,3 @@
-Post Truth Helpers
-==========
-
-Przykłady użycia w Example.ipynb
-
 Tresc zadania
 ==========
 
